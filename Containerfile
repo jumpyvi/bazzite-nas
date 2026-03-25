@@ -5,8 +5,6 @@ COPY build_files /
 # Base Image
 FROM ghcr.io/ublue-os/bazzite-dx:stable
 
-dnf install -y incus
-
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
