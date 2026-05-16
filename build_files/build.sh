@@ -22,9 +22,13 @@ repo_gpgcheck=0
 gpgkey=https://rpm.rancher.io/public.key
 EOF
 
-rpm-ostree install -y container-selinux k3s-selinux
+dnf install -y container-selinux k3s-selinux
 
 export INSTALL_K3S_SKIP_SELINUX_RPM=true
+export INSTALL_K3S_BIN_DIR=/usr/bin
+export INSTALL_K3S_SKIP_SELINUX_RPM=true
+export INSTALL_K3S_SKIP_ENABLE=true
+export INSTALL_K3S_SKIP_START=true
 curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=/usr/bin sh -
 
 
