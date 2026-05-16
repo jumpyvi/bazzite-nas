@@ -12,6 +12,7 @@ set -ouex pipefail
 # this installs a package from fedora repos
 dnf5 install -y cockpit cockpit-files cockpit-ostree cockpit-podman
 
+rm -rf /usr/local
 mkdir -p /usr/local/bin/
 
 curl -sfL https://get.k3s.io | sh - 
