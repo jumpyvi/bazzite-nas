@@ -10,7 +10,8 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
 
-dnf install -y cockpit cockpit-files cockpit-ostree cockpit-podman
+
+dnf install -y cockpit cockpit-files cockpit-ostree cockpit-podman udisks2-lvm2 udisks2-iscsi udisks2-btrfs
 
 cat << 'EOF' > /etc/yum.repos.d/rancher-k3s-common.repo
 [rancher-k3s-common-stable]
