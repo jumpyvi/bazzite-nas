@@ -9,18 +9,23 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
-dnf5 install -y cockpit cockpit-files cockpit-ostree cockpit-podman
 
+dnf install -y cockpit cockpit-files cockpit-ostree cockpit-podman
+
+cat << 'EOF' > /etc/yum.repos.d/rancher-k3s-common.repo
+[rancher-k3s-common-stable]
+name=Rancher K3s Common (Stable for CoreOS)
+baseurl=https://rpm.rancher.io/k3s/stable/common/coreos/noarch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://rpm.rancher.io/public.key
+EOF
+
+rpm-ostree install -y container-selinux k3s-selinux
+
+export INSTALL_K3S_SKIP_SELINUX_RPM=true
 curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=/usr/bin sh -
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
 
 systemctl enable podman.socket
